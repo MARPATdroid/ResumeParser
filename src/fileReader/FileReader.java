@@ -1,5 +1,8 @@
 package fileReader;
 
+import jobListing.JobListing;
+import resume.Resume;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,12 +63,11 @@ public class FileReader {
      * @param resume The resume name to be parsed
      * @return An ArrayList of Arraylists containing the contents of Skills and experiences
      */
-    public static ArrayList<ArrayList<String>> readResume(String resume) {
+    public static Resume readResume(String resume) {
 
         List<String> parsedResume = parseFile(resume);   //get the parsed resume that we are going to use to break out into the resume's component parts.
         boolean skills = false; //boolean flag to track skills section
 
-        ArrayList<ArrayList<String>> sendMe = new ArrayList<>();   //returnable array list
         ArrayList<String> skillsList = new ArrayList<>();          //skills array list
         ArrayList<String> expList = new ArrayList<>();              //Experience array List
 
@@ -90,25 +92,24 @@ public class FileReader {
                 }
             }
         }
-        sendMe.add(skillsList);  //add skills list to the sendMe array List
-        sendMe.add(expList);     // add experience ot the sendme List
+
+        Resume sendMe = new Resume(skillsList, expList);
 
         return sendMe;   //return the list
     }
 
     /**
-     * PArses a job posting for comparison against a resume
+     * PArses a job posting for comparison against a resume, sub 0 is needs, sub 1 is desires, sub 2 is other
      * @param jobPosting is the simple text copy of a job posting
      * @return an array list with the job posting details for comparison.
      */
-    public static ArrayList<ArrayList<String>> jobPosting(String jobPosting) {
+    public static JobListing jobPosting(String jobPosting) {
 
         List<String> parsedListing = parseFile(jobPosting);   //create the job listing as a basic object
         boolean need = false;       //flow control for sections of posting
         boolean desired = false;    //flow control for sections of posting
         boolean other = false;      //flow control for sections of posting
 
-        ArrayList<ArrayList<String>> sendMe = new ArrayList<>();   //main array list to return
         ArrayList<String> needs = new ArrayList<>();                //Array list of needs
         ArrayList<String> desireds = new ArrayList<>();             //Array list of Desires
         ArrayList<String> others = new ArrayList<>();               //Array List of others
@@ -116,28 +117,42 @@ public class FileReader {
 
 
         for (String s : parsedListing) {
-            if (s.trim().toLowerCase().equals("need")) {
+            if (s.trim().toLowerCase().equals("need")) {   //manage flags for needs
                 need = true;
                 desired = false;
                 other = false;
                 continue;
-            }else if (s.trim().toLowerCase().equals("desired")) {
+            }else if (s.trim().toLowerCase().equals("desired")) {       //manage flags for desired
                 need = false;
                 desired = true;
                 other = false;
                 continue;
-            }else if (s.trim().toLowerCase().equals("other")) {
+            }else if (s.trim().toLowerCase().equals("other")) {     //manage flags for other
                 need = false;
                 desired = false;
                 other = true;
                 continue;
             }
 
+            if (need) {
+                if (!s.trim().isEmpty()) {
+                    needs.add(s.trim());            //put non blank lines into need
+                }
+            } else if (desired) {
+                if (!s.trim().isEmpty()) {
+                    desireds.add(s.trim());         //put non blank lines into desires
+                }
+            } else if (other) {
+                if (!s.trim().isEmpty()) {
+                    others.add(s.trim());           //put non blank lines into other
+                }
+            }
 
         }
 
+        JobListing job = new JobListing(needs, desireds, others);
 
 
-
+        return job;          //send the AL back to the main body
     }
  }
