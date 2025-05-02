@@ -10,6 +10,7 @@ public class JobListing {
     ArrayList<String> needs;            //lIST OF NEEDS
     ArrayList<String> desires;          //lIST OF DESIREs
     ArrayList<String> others;           //ist of others
+    ArrayList<String> wordsInListing = new ArrayList<String>();   //all words in listing
 
     /**
      * constructor for job Listings
@@ -21,6 +22,24 @@ public class JobListing {
         this.needs = needs;
         this.desires = desires;
         this.others = others;
+
+        for (String s : needs) {
+            if (!this.wordsInListing.contains(s)) {
+                this.wordsInListing.add(s);
+            }
+        }
+
+        for (String s : desires) {
+            if (!this.wordsInListing.contains(s)) {
+                this.wordsInListing.add(s);
+            }
+        }
+
+        for (String s : others) {
+            if (!this.wordsInListing.contains(s)) {
+                this.wordsInListing.add(s);
+            }
+        }
     }
 
     /**
@@ -45,6 +64,10 @@ public class JobListing {
      */
     public ArrayList<String> getOthers() {
         return others;
+    }
+
+    public ArrayList<String> getWordsInListing() {
+        return wordsInListing;
     }
 
 

@@ -3,7 +3,6 @@ import jobListing.JobListing;
 import resume.Resume;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class main {
 
@@ -37,6 +36,7 @@ public class main {
         m.compareSkills(resume, jobListing);
         m.compareExperience(resume, jobListing);
         m.printResults(resume);
+        m.printWordsMissing(resume, jobListing);
 
 
 
@@ -248,6 +248,27 @@ public class main {
                 }
             }
         }
+    }
+
+    private void printWordsMissing(Resume resume, JobListing jobListing) {
+        int counter = 0;
+        System.out.println("---------------------------------------------");
+        System.out.println("              Words Missing              ");
+        System.out.println("---------------------------------------------");
+        for (String s: jobListing.getWordsInListing()) {
+            boolean found = false;
+            for(String s2 : resume.getWordsInResume()) {
+                if (s.trim().toLowerCase().equals(s2.trim().toLowerCase())) {
+                    found = true;
+                    counter += 1;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println(s.toLowerCase() + " ");
+            }
+        }
+
     }
 
 

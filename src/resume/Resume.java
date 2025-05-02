@@ -22,6 +22,8 @@ public class Resume {
 
     public HashMap<String, ArrayList<String>> matchedLine = new HashMap<String, ArrayList<String>>();
 
+    ArrayList<String> wordsInResume = new ArrayList<>();
+
     /**
      * constructor for the resume object
      * @param skills skills imported from the resume
@@ -30,6 +32,17 @@ public class Resume {
     public Resume(ArrayList<String> skills, ArrayList<String> experience) {
         this.skills = skills;
         this.experience = experience;
+
+        for (String s : skills) {
+            if (!this.wordsInResume.contains(s)) {
+                this.wordsInResume.add(s);
+            }
+        }
+        for (String s : experience) {
+            if (!this.wordsInResume.contains(s)) {
+                this.wordsInResume.add(s);
+            }
+        }
 
     }
 
@@ -70,6 +83,10 @@ public class Resume {
 
     public HashMap<String, ArrayList<String>> getMatchedLine() {
         return matchedLine;
+    }
+
+    public ArrayList<String> getWordsInResume() {
+        return wordsInResume;
     }
 
     public void setMatchedLine(String key, String value) {
