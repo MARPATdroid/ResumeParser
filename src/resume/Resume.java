@@ -34,15 +34,22 @@ public class Resume {
         this.experience = experience;
 
         for (String s : skills) {
-            if (!this.wordsInResume.contains(s)) {
-                this.wordsInResume.add(s);
+            String[] splitS = s.trim().toLowerCase().split("[-,_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
+            for (String s2 : splitS) {
+                if (!this.wordsInResume.contains(s2.trim().toLowerCase())) {
+                    this.wordsInResume.add(s2.trim().toLowerCase());
+                }
             }
         }
         for (String s : experience) {
-            if (!this.wordsInResume.contains(s)) {
-                this.wordsInResume.add(s);
+            String[] splitS = s.trim().toLowerCase().split("[-,_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
+            for (String s2 : splitS) {
+                if (!this.wordsInResume.contains(s2.trim().toLowerCase())) {
+                    this.wordsInResume.add(s2.trim().toLowerCase());
+                }
             }
         }
+        System.out.println("Length of words in resume: " + this.wordsInResume.size() + "");
 
     }
 

@@ -29,7 +29,7 @@ public class main {
     public static void main(String[] args) {
 
         main m = new main();
-        Resume resume = FileReader.readResume("Resume.txt");
+        Resume resume = FileReader.readResume("Resume2.txt");
         JobListing jobListing = FileReader.jobPosting("JobPosting.txt");
 
 
@@ -251,24 +251,30 @@ public class main {
     }
 
     private void printWordsMissing(Resume resume, JobListing jobListing) {
-        int counter = 0;
+        double counter = 0;
+        int newline = 0;
         System.out.println("---------------------------------------------");
         System.out.println("              Words Missing              ");
         System.out.println("---------------------------------------------");
-        for (String s: jobListing.getWordsInListing()) {
+        for (String s : jobListing.getWordsInListing()) {
             boolean found = false;
-            for(String s2 : resume.getWordsInResume()) {
-                if (s.trim().toLowerCase().equals(s2.trim().toLowerCase())) {
-                    found = true;
-                    counter += 1;
-                    break;
+            if (resume.getWordsInResume().contains(s) ) {
+                found = true;
+                counter += 1;
+            }
+
+            if (!found) {
+                System.out.print(s.toLowerCase() + " | ");
+                newline += 1;
+                if (newline == 7) {
+                    System.out.println();
+                    newline = 0;
                 }
             }
-            if (!found) {
-                System.out.println(s.toLowerCase() + " ");
-            }
         }
-
+        System.out.println("\n---------------------------------------------");
+        double percent = counter / jobListing.getWordsInListing().size();
+        System.out.println(percent * 100 + "% of words matched");
     }
 
 
