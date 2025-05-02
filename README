@@ -1,0 +1,129 @@
+Resume Parser
+By MARPATdroid
+v0.0.1
+
+This java applet parses through a list of resume bullet points for skills (short blurbs) and experiences (lerger bullet Points)
+
+it compares them against harvested
+Needs (must haves from a listing),
+Desires (Optionals from a listing),
+and
+others (other key phrases put in a file from the listing)
+
+Sections for the Resume are formatted as such:
+Skills
+<Short Lines>
+------------    (10 hyphens)
+
+Experience
+<Long Lines>
+
+example below
+
+Skills
+Lorem Ipsum
+Lorem ipsum dolor sit amet
+Duis aute irure dolo
+culpa qui officia
+dolore magna aliqua
+----------
+
+Experience
+commodo consequat. Duis aute irure dolor in reprehenderit in
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+
+
+
+Job postings are represented in a similar manner except with need, desired, and other, Example below:
+
+Need
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+eniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+sunt in culpa qui officia
+vivamus fringilla lacus nec metus bibendum
+----------
+
+Desired
+e cillum dolore eu fugiat nulla pariatur.
+sunt in culpa qui officia
+Tempus leo eu aenean sed diam urna
+----------
+Other
+Duis aute irure dolor in reprehenderit
+sunt in culpa qui officia
+malesuada lacinia integer nunc posuere
+
+
+
+Place both files in the same area as the compiled JAR
+The application will prompt you for the names of the resume, and the job listing separately.
+It will also ask you if you want to have the output in color.
+If you are in linux color should work out of the box in most linux distros.
+In Windows if you want color follow these steps... or just don't want color:
+
+Using the Registry Editor:
+
+    Open the Registry Editor (regedit.exe).
+    Navigate to the following key: HKEY_CURRENT_USER\Console.
+    If the VirtualTerminalLevel key doesn't exist, create a new DWORD (32-bit) Value named VirtualTerminalLevel.
+    Set the value to 1.
+    Restart the Command Prompt or open a new one for the changes to take effect
+
+
+This is a fairly quick and simple analysis that should provide a good starting point
+The Output will contain the following sections to help you refine your resume:
+
+Length of words in resume:          Total number of unique words in resume
+Length of words in listing:         Total number of unique words in listing
+---------------------------------------------
+              Skills Section
+---------------------------------------------
+The number of skill hits for needs, desires, and others based on user set match threshold
+a list of each line in skills section of resume with the highest match percent and what section of the listing it came out of will default to needs
+eg.
+Expertise in legal document preparation || Match 0% of type Needs
+
+If color is on these will be color coded red < 40% match; yellow < 60% match; Blue < 80% match; green up to 100% match
+any matches over the threshold will also have the lines from the job posting that hit as matches to make sure that the match makes sense
+
+---------------------------------------------
+              Experience Section
+---------------------------------------------
+
+This is exactly teh same as the Skills section above it just covers the experience seciton of your resume
+
+---------------------------------------------
+              Words Missing
+---------------------------------------------
+
+Gets all of the words in the job posting separates words based on spaces or the following symbols -;,_+&
+Also gives you a percent of words that your resume has matched in the job listing.
+
+
+---------------------------------------------
+    lines not addressed in job listing
+---------------------------------------------
+
+Based off of the set threshold any lines in the job listing that your resume didn't hit wil lbe listed here broken into sections:
+Needs:
+
+Desires:
+
+Others:
+
+
+___________________________________________________________________________________________
+Other notes I recommend using the last two sections to really tighten down and hit all the key points in your resume
+I also recommend using any of the blue and green level hits from the first sections to keep in the resume, use some of the yellows to pad it if necessary
+and delete all of the reds.   Your resume should be 1 page, maybe 2 pages tops, a hiring manager is going to spend all of 3 minutes looking at your resume.
+you need to hit that hard in those 3 minutes.
+
+This tool should help you get through the screener, but if it takes you 3 or 4 pages then you're already done.
+
+I also recommend a threshold of 70-80%
+
+
+
+
