@@ -82,6 +82,10 @@ public class FileReader {
                 continue;
             }
 
+            if (s.trim().toLowerCase().equals("experience")) {
+                continue;      //continue we don't want to keep this line
+            }
+
             if (skills) {
                 if (!s.trim().isEmpty()) {
                     skillsList.add(s.trim());  //if skills add skills to the skills array list
@@ -131,6 +135,10 @@ public class FileReader {
                 need = false;
                 desired = false;
                 other = true;
+                continue;
+            }
+
+            if(s.equals("----------")){
                 continue;
             }
 
