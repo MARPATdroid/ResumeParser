@@ -24,7 +24,7 @@ public class JobListing {
         this.others = others;
 
         for (String s : needs) {
-            String[] splitS = s.trim().toLowerCase().split("[-,_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
+            String[] splitS = s.trim().toLowerCase().split("[-,;_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
             for (String s2 : splitS) {
                 if (!this.wordsInListing.contains(s2.trim().toLowerCase())) {
                     this.wordsInListing.add(s2.trim().toLowerCase());
@@ -33,7 +33,7 @@ public class JobListing {
         }
 
         for (String s : desires) {
-            String[] splitS = s.trim().toLowerCase().split("[-,_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
+            String[] splitS = s.trim().toLowerCase().split("[-,;_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
             for (String s2 : splitS) {
                 if (!this.wordsInListing.contains(s2.trim().toLowerCase())) {
                     this.wordsInListing.add(s2.trim().toLowerCase());
@@ -42,7 +42,7 @@ public class JobListing {
         }
 
         for (String s : others) {
-            String[] splitS = s.trim().toLowerCase().split("[-,_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
+            String[] splitS = s.trim().toLowerCase().split("[-,;_+&\\s]+");  //split each line into words all lowercase with no extra whitespace
             for (String s2 : splitS) {
                 if (!this.wordsInListing.contains(s2.trim().toLowerCase())) {
                     this.wordsInListing.add(s2.trim().toLowerCase());

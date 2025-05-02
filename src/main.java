@@ -24,6 +24,7 @@ public class main {
     private int expDesires = 0;
     private int expOthers = 0;
 
+    private double threshold = 60.0;
 
 
     public static void main(String[] args) {
@@ -38,21 +39,22 @@ public class main {
         m.printResults(resume);
         m.printWordsMissing(resume, jobListing);
 
-
-
+        System.out.println();
+        m.printNoMatch(resume, jobListing);
 
 
     }
 
     /**
      * method to compare and start setting the data for the skills to check alignment
-     * @param resume that is being compared
+     *
+     * @param resume     that is being compared
      * @param jobListing that is being compared against
      */
     private void compareSkills(Resume resume, JobListing jobListing) {
         String regex = "[-_\\s]+";
         for (String s : resume.getSkills()) {   //get each line from resume Skills section
-            for(String s2 : jobListing.getNeeds()){  //get each line from the job listing
+            for (String s2 : jobListing.getNeeds()) {  //get each line from the job listing
                 String[] splitS = s.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 String[] splitS2 = s2.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 double count = 0.0;  //initialize a count for matches
@@ -65,14 +67,14 @@ public class main {
                         }
                     }
                 }
-                score = count / splitS2.length;
-                if ((score * 100) > 70 ){
+                score = count / splitS.length;
+                if ((score * 100) > threshold) {
                     skillNeeds += 1;
                     resume.setMatchedLine(s, s2);
                 }
-                resume.setSkillScores(s, score, "Needs" );
+                resume.setSkillScores(s, score, "Needs");
             }
-            for(String s2 : jobListing.getDesires()){  //get each line from the job listing
+            for (String s2 : jobListing.getDesires()) {  //get each line from the job listing
                 String[] splitS = s.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 String[] splitS2 = s2.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 double count = 0.0;  //initialize a count for matches
@@ -86,13 +88,13 @@ public class main {
                     }
                 }
                 score = count / splitS2.length;
-                if ((score * 100) > 70 ){
+                if ((score * 100) > threshold) {
                     skillDesires += 1;
                     resume.setMatchedLine(s, s2);
                 }
-                resume.setSkillScores(s, score, "Desires" );
+                resume.setSkillScores(s, score, "Desires");
             }
-            for(String s2 : jobListing.getOthers()){  //get each line from the job listing
+            for (String s2 : jobListing.getOthers()) {  //get each line from the job listing
                 String[] splitS = s.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 String[] splitS2 = s2.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 double count = 0.0;  //initialize a count for matches
@@ -106,11 +108,11 @@ public class main {
                     }
                 }
                 score = count / splitS2.length;
-                if ((score * 100) > 70 ){
+                if ((score * 100) > threshold) {
                     skillOthers += 1;
                     resume.setMatchedLine(s, s2);
                 }
-                resume.setSkillScores(s, score, "Others" );
+                resume.setSkillScores(s, score, "Others");
             }
 
         }
@@ -125,7 +127,7 @@ public class main {
     private void compareExperience(Resume resume, JobListing jobListing) {
         String regex = "[-_\\s]+";
         for (String s : resume.getExperience()) {   //get each line from resume Skills section
-            for(String s2 : jobListing.getNeeds()){  //get each line from the job listing
+            for (String s2 : jobListing.getNeeds()) {  //get each line from the job listing
                 String[] splitS = s.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 String[] splitS2 = s2.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 double count = 0.0;  //initialize a count for matches
@@ -139,13 +141,13 @@ public class main {
                     }
                 }
                 score = count / splitS2.length;
-                if ((score * 100) > 70 ){
+                if ((score * 100) > threshold) {
                     expNeeds += 1;
                     resume.setMatchedLine(s, s2);
                 }
-                resume.setExpScores(s, score, "Needs" );
+                resume.setExpScores(s, score, "Needs");
             }
-            for(String s2 : jobListing.getDesires()){  //get each line from the job listing
+            for (String s2 : jobListing.getDesires()) {  //get each line from the job listing
                 String[] splitS = s.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 String[] splitS2 = s2.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 double count = 0.0;  //initialize a count for matches
@@ -159,13 +161,13 @@ public class main {
                     }
                 }
                 score = count / splitS2.length;
-                if ((score * 100.00) > 70 ){
+                if ((score * 100.00) > threshold) {
                     expDesires += 1;
                     resume.setMatchedLine(s, s2);
                 }
-                resume.setExpScores(s, score, "Desires" );
+                resume.setExpScores(s, score, "Desires");
             }
-            for(String s2 : jobListing.getOthers()){  //get each line from the job listing
+            for (String s2 : jobListing.getOthers()) {  //get each line from the job listing
                 String[] splitS = s.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 String[] splitS2 = s2.trim().toLowerCase().split(regex);  //split each line into words all lowercase with no extra whitespace
                 double count = 0.0;  //initialize a count for matches
@@ -179,11 +181,11 @@ public class main {
                     }
                 }
                 score = count / splitS2.length;
-                if ((score * 100) > 70 ){
+                if ((score * 100) > threshold) {
                     expOthers += 1;
                     resume.setMatchedLine(s, s2);
                 }
-                resume.setExpScores(s, score, "Others" );
+                resume.setExpScores(s, score, "Others");
             }
 
         }
@@ -192,6 +194,7 @@ public class main {
 
     /**
      * simple display method
+     *
      * @param resume to be displayed
      */
     private void printResults(Resume resume) {
@@ -204,9 +207,9 @@ public class main {
         System.out.println("skill Desires: " + skillDesires);
         System.out.println("skill Others: " + skillOthers);
         for (String s : resume.getSkills()) {
-            if(resume.getSkillScores().get(s) * 100 < 40.0) {
+            if (resume.getSkillScores().get(s) * 100 < 40.0) {
                 System.out.print(ANSI_RED);
-            } else if(resume.getSkillScores().get(s) * 100 < 60.0) {
+            } else if (resume.getSkillScores().get(s) * 100 < 60.0) {
                 System.out.print(ANSI_YELLOW);
             } else if (resume.getSkillScores().get(s) * 100 < 80.0) {
                 System.out.print(ANSI_BLUE);
@@ -215,7 +218,7 @@ public class main {
             }
             System.out.println(s + " || Match " + f.format(resume.getSkillScores().get(s) * 100) + "% of type " + resume.getSkillType().get(s));
             System.out.print(ANSI_RESET);
-            if (resume.getSkillScores().get(s) * 100 > 70.0) {
+            if (resume.getSkillScores().get(s) * 100 > threshold) {
                 for (String s2 : resume.getMatchedLine().get(s)) {
                     System.out.println("          " + s2);
                 }
@@ -231,9 +234,9 @@ public class main {
 
         for (String s : resume.getExperience()) {
 
-            if(resume.getExpScores().get(s) * 100 < 40.0) {
+            if (resume.getExpScores().get(s) * 100 < 40.0) {
                 System.out.print(ANSI_RED);
-            } else if(resume.getExpScores().get(s) * 100 < 60.0) {
+            } else if (resume.getExpScores().get(s) * 100 < 60.0) {
                 System.out.print(ANSI_YELLOW);
             } else if (resume.getExpScores().get(s) * 100 < 80.0) {
                 System.out.print(ANSI_BLUE);
@@ -242,7 +245,7 @@ public class main {
             }
             System.out.println(s + " || Match " + f.format(resume.getExpScores().get(s) * 100) + "% of type " + resume.getExpType().get(s));
             System.out.print(ANSI_RESET);
-            if (resume.getExpScores().get(s) * 100 > 70.0) {
+            if (resume.getExpScores().get(s) * 100 > threshold) {
                 for (String s2 : resume.getMatchedLine().get(s)) {
                     System.out.println("          " + s2);
                 }
@@ -258,7 +261,7 @@ public class main {
         System.out.println("---------------------------------------------");
         for (String s : jobListing.getWordsInListing()) {
             boolean found = false;
-            if (resume.getWordsInResume().contains(s) ) {
+            if (resume.getWordsInResume().contains(s)) {
                 found = true;
                 counter += 1;
             }
@@ -272,11 +275,58 @@ public class main {
                 }
             }
         }
-        System.out.println("\n---------------------------------------------");
+
         double percent = counter / jobListing.getWordsInListing().size();
-        System.out.println(percent * 100 + "% of words matched");
+        System.out.println("\n" + percent * 100 + "% of words matched");
+        System.out.println("\n---------------------------------------------");
     }
 
 
+    private void printNoMatch(Resume resume, JobListing jobListing) {
+
+
+        System.out.println("---------------------------------------------");
+        System.out.println("    lines not addressed in job listing       ");
+        System.out.println("---------------------------------------------");
+        System.out.println("\nNeeds: ");
+        for (String s : jobListing.getNeeds()) {
+            isExistsFlag(resume, s);
+        }
+        System.out.println("\nDesires: ");
+        for (String s : jobListing.getDesires()) {
+            isExistsFlag(resume, s);
+        }
+        System.out.println("\nOthers: ");
+        for (String s : jobListing.getOthers()) {
+            isExistsFlag(resume, s);
+        }
+
+    }
+
+    private void isExistsFlag(Resume resume, String s) {
+        boolean existsFlag = false;
+        for (String s2 : resume.getSkills()) {
+            if (resume.getMatchedLine().containsKey(s2)) {
+                for (String s3 : resume.getMatchedLine().get(s2)) {
+                    if (s3.equals(s)) {
+                        existsFlag = true;
+                    }
+                }
+            }
+        }
+        for (String s2 : resume.getExperience()) {
+            if (resume.getMatchedLine().containsKey(s2)) {
+                for (String s3 : resume.getMatchedLine().get(s2)) {
+                    if (s3.equals(s)) {
+                        existsFlag = true;
+                    }
+                }
+            }
+        }
+        if (!existsFlag) {
+            System.out.println(s);
+        }
+
+    }
 
 }
