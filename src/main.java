@@ -251,11 +251,11 @@ public class main {
         System.out.println("skill Others: " + skillOthers);
         for (String s : resume.getSkills()) {
             if (color) {
-                if (resume.getSkillScores().get(s) * 100 < 40.0) {
+                if (resume.getSkillScores().get(s) * 100 < (threshold / 3.0)) {
                     System.out.print(ANSI_RED);
-                } else if (resume.getSkillScores().get(s) * 100 < 60.0) {
+                } else if (resume.getSkillScores().get(s) * 100 < (threshold / 3.0) * 2) {
                     System.out.print(ANSI_YELLOW);
-                } else if (resume.getSkillScores().get(s) * 100 < 80.0) {
+                } else if (resume.getSkillScores().get(s) * 100 < threshold) {
                     System.out.print(ANSI_BLUE);
                 } else {
                     System.out.print(ANSI_GREEN);
@@ -282,11 +282,11 @@ public class main {
         for (String s : resume.getExperience()) {
 
             if (color) {
-                if (resume.getExpScores().get(s) * 100 < 40.0) {
+                if (resume.getExpScores().get(s) * 100 < (threshold / 3.0)) {
                     System.out.print(ANSI_RED);
-                } else if (resume.getExpScores().get(s) * 100 < 60.0) {
+                } else if (resume.getExpScores().get(s) * 100 < (threshold / 3.0) * 2) {
                     System.out.print(ANSI_YELLOW);
-                } else if (resume.getExpScores().get(s) * 100 < 80.0) {
+                } else if (resume.getExpScores().get(s) * 100 < threshold ) {
                     System.out.print(ANSI_BLUE);
                 } else {
                     System.out.print(ANSI_GREEN);
