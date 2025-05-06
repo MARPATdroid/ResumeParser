@@ -246,32 +246,35 @@ public class main {
         System.out.println("---------------------------------------------");
         System.out.println("              Skills Section                 ");
         System.out.println("---------------------------------------------");
-        System.out.println("Skill Needs: " + skillNeeds);
+        System.out.println("Skill Needs: " + skillNeeds);        //output the 3 types of matches for skills
         System.out.println("skill Desires: " + skillDesires);
         System.out.println("skill Others: " + skillOthers);
-        for (String s : resume.getSkills()) {
-            if (color) {
-                if (resume.getSkillScores().get(s) * 100 < (threshold / 3.0)) {
+        for (String s : resume.getSkills()) {                       //itterate over all skills
+            if (color) {                                            //if we are using color then use this to determine the color
+                if (resume.getSkillScores().get(s) * 100 < (threshold / 3.0)) {                         //the base method of determining color is threshold in 3rds
                     System.out.print(ANSI_RED);
-                } else if (resume.getSkillScores().get(s) * 100 < (threshold / 3.0) * 2) {
+                } else if (resume.getSkillScores().get(s) * 100 < (threshold / 3.0) * 2) {          // then times 2 for next one
                     System.out.print(ANSI_YELLOW);
-                } else if (resume.getSkillScores().get(s) * 100 < threshold) {
+                } else if (resume.getSkillScores().get(s) * 100 < threshold) {                      //up to the threshold gets blue so no need for extra math
                     System.out.print(ANSI_BLUE);
-                } else {
+                } else {                                //all others should b egreen
                     System.out.print(ANSI_GREEN);
                 }
             }
-            System.out.println(s + " || Match " + f.format(resume.getSkillScores().get(s) * 100) + "% of type " + resume.getSkillType().get(s));
-            if(color) {
+            System.out.println(s + " || Match " + f.format(resume.getSkillScores().get(s) * 100) + "% of type " + resume.getSkillType().get(s));        //print out results of line analysis
+            if(color) {             //if we colored it then clear that color for next line
                 System.out.print(ANSI_RESET);
             }
-            if (resume.getSkillScores().get(s) * 100 > threshold) {
+            if (resume.getSkillScores().get(s) * 100 > threshold) {             // if we have any above threshold matches then we want to print them under the line we're evaluating
                 for (String s2 : resume.getMatchedLine().get(s)) {
                     System.out.println("          " + s2);
                 }
             }
         }
 
+        /*
+        Comments for this section are identical to the above section just keyed off experience.
+        */
         System.out.println("---------------------------------------------");
         System.out.println("              Experience Section             ");
         System.out.println("---------------------------------------------");
@@ -304,6 +307,11 @@ public class main {
         }
     }
 
+    /**
+     * Simple method to find words that matsch and identify those that do not match between the resume and teh job postin
+     * @param resume to be examined
+     * @param jobListing to be examined
+     */
     private void printWordsMissing(Resume resume, JobListing jobListing) {
         double counter = 0;
         int newline = 0;
@@ -333,28 +341,36 @@ public class main {
     }
 
 
+    /**
+     * Print out the lines in the job posting that don't have a match in the resume
+     * @param resume to be examined
+     * @param jobListing to be compared to
+     */
     private void printNoMatch(Resume resume, JobListing jobListing) {
-
-
         System.out.println("---------------------------------------------");
         System.out.println("    lines not addressed in job listing       ");
         System.out.println("---------------------------------------------");
         System.out.println("\nNeeds: ");
         for (String s : jobListing.getNeeds()) {
-            isExistsFlag(resume, s);
+            isExists(resume, s);
         }
         System.out.println("\nDesires: ");
         for (String s : jobListing.getDesires()) {
-            isExistsFlag(resume, s);
+            isExists(resume, s);
         }
         System.out.println("\nOthers: ");
         for (String s : jobListing.getOthers()) {
-            isExistsFlag(resume, s);
+            isExists(resume, s);
         }
 
     }
 
-    private void isExistsFlag(Resume resume, String s) {
+    /**
+     * Quick refactor of the print no match function to align with DRY
+     * @param resume to be evaluated
+     * @param s the current itterateion of the lines in the job listing
+     */
+    private void isExists(Resume resume, String s) {
         boolean existsFlag = false;
         for (String s2 : resume.getSkills()) {
             if (resume.getMatchedLine().containsKey(s2)) {
